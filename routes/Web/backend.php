@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Web\Backend\DashboardController;
 use App\Http\Controllers\Web\Backend\FAQController;
 use App\Http\Controllers\Web\Backend\ServiceController;
-use App\Http\Controllers\Web\Backend\DashboardController;
+use App\Models\ProductMatch;
+use Illuminate\Support\Facades\Route;
 
 // Route for Admin Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -27,4 +28,9 @@ Route::controller(FAQController::class)->group(function () {
     Route::put('/faq/update/{id}', 'update')->name('faq.update');
     Route::get('/faq/status/{id}', 'status')->name('faq.status');
     Route::delete('/faq/destroy/{id}', 'destroy')->name('faq.destroy');
+});
+
+Route::get('/dashboard/matches', function () {
+    $matches = ProductMatch::with(['amazon', 'ali1688'])->orderByDesc('similarity')->paginate(25);
+    return view('backend.layouts.matches.index', compact('matches'));
 });
