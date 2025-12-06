@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="text-center mt-4">
                     <div class="mb-4 pb-2">
-                        <a href="{{ route('index') }}" class="auth-logo">
+                        <a href="#" class="auth-logo">
                             <img src="{{ $systemSetting->logo ? asset($systemSetting->logo) : asset('backend/images/logo-dark.png') }}"
                                 alt="logo" height="30" class="auth-logo-dark mx-auto">
                             <img src="{{ $systemSetting->logo ? asset($systemSetting->logo) : asset('backend/images/logo-light.png') }}"

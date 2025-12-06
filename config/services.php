@@ -28,4 +28,7 @@ return [
             'ES' => ['https://www.amazon.es/gp/bestsellers'],
         ],
     ],
+    'ali1688'  => [
+        'endpoint' => env('ALI1688_API_ENDPOINT', 'http://localhost:9000/ali1688/search'),
+    ],
 ];

@@ -1,14 +1,14 @@
 <?php
 
+use App\Http\Controllers\Api\Ali1688Controller;
+use App\Http\Controllers\Api\Ali1688ProxyController;
+use App\Http\Controllers\Api\AmazonController;
 use App\Http\Controllers\Api\AmazonProductController;
-use App\Http\Controllers\Api\ContentController;
+use App\Http\Controllers\Api\ApiProductMatchController;
 use App\Http\Controllers\Api\MatchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-
-// This route is for getting terms and conditions and privacy policy.
-Route::get('contents', [ContentController::class, 'index'])->middleware(['throttle:10,1']);
 
 Route::get('/matches', [MatchController::class, 'index']);
 
@@ -40,3 +40,20 @@ Route::post('/clip/test', function (Request $request) {
 // Amazon products API (controller-based)
 Route::get('/amazon-products', [AmazonProductController::class, 'index']);
 Route::get('/amazon-products/{asin}', [AmazonProductController::class, 'show']);
+
+Route::get('/internal/ali1688/search', [Ali1688ProxyController::class, 'search'])->name('internal.ali1688.search');
+
+Route::prefix('amazon')->group(function () {
+    Route::get('best-sellers', [AmazonController::class, 'index']);
+    Route::post('best-sellers/scan', [AmazonController::class, 'scan']);
+});
+
+Route::prefix('ali1688')->group(function () {
+    Route::get('products', [Ali1688Controller::class, 'index']);
+    Route::post('search', [Ali1688Controller::class, 'search']);
+});
+
+Route::prefix('matches')->group(function () {
+    Route::get('/', [ApiProductMatchController::class, 'index']);
+    Route::post('run', [ApiProductMatchController::class, 'run']);
+});

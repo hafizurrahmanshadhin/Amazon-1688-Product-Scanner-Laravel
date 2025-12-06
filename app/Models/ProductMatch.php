@@ -12,10 +12,10 @@ class ProductMatch extends Model {
     protected $casts   = ['meta' => 'array'];
 
     public function amazon(): BelongsTo {
-        return $this->belongsTo(AmazonProduct::class);
+        return $this->belongsTo(AmazonProduct::class, 'amazon_product_id', 'id');
     }
-    
+
     public function ali1688(): BelongsTo {
-        return $this->belongsTo(Ali1688Product::class, 'ali1688_product_id');
+        return $this->belongsTo(Ali1688Product::class, 'ali1688_product_id', 'id');
     }
 }
